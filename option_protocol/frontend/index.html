@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kodrat — Hedge Exports from FX Volatility</title>
+  <meta name="description" content="On-chain FX hedging for global SMEs. USD/IDR put options from $50 premium — no bank, no million-dollar minimums." />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body class="landing">
+
+<nav class="ed-nav">
+  <a href="/" class="nav-brand" aria-label="Kodrat — home">
+    <span class="logo">K</span>
+    <span class="brand-text"><span class="brand-name">Kodrat</span></span>
+  </a>
+  <div class="nav-actions">
+    <a href="/app.html" class="btn-ink">Open App</a>
+  </div>
+</nav>
+
+<main class="editorial-main">
+
+  <!-- Live ticker tape -->
+  <div class="ticker">
+    <span class="ticker-item">
+      <img class="ticker-flag" src="/flags/Indonesia.jpg" alt="" />
+      <strong>USD/IDR</strong> 16,250.00 <span class="ticker-up">↑ 0.42%</span>
+    </span>
+    <span class="ticker-sep">·</span>
+    <span class="ticker-item">
+      <img class="ticker-flag" src="/flags/Japan.jpg" alt="" />
+      <strong>USD/JPY</strong> 145.20 <span class="ticker-down">↓ 0.18%</span>
+    </span>
+    <span class="ticker-sep">·</span>
+    <span class="ticker-item">12M IDR VOLATILITY <strong>±8.2%</strong></span>
+    <span class="ticker-sep">·</span>
+    <span class="ticker-item">📍 Devnet</span>
+  </div>
+
+  <!-- Editorial hero -->
+  <section class="ed-hero">
+    <div class="ed-hero-art">
+      <div class="chibi-cluster" aria-label="Global trading pairs">
+        <img src="/flags/Indonesia.jpg" alt="Indonesia" />
+        <img src="/flags/usa.jpg" alt="United States" />
+        <img src="/flags/Japan.jpg" alt="Japan" />
+        <img src="/flags/China.jpg" alt="China" />
+      </div>
+    </div>
+    <div class="ed-hero-text">
+      <span class="ed-eyebrow">FX Hedging · On-Chain</span>
+      <h1>Volatility <em>doesn't care</em> about the size of your business.</h1>
+      <p>Indonesian SME exporters get hit by rupiah swings just as hard as the multinationals — without access to the same hedging tools. Kodrat provides USD/IDR put options on Solana, starting at $50 premium.</p>
+      <div class="ed-cta-row">
+        <a href="/app.html" class="btn-ink">Start Hedging →</a>
+        <a href="#how" class="btn-link">How it works</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Big numbers -->
+  <section class="big-numbers">
+    <div class="big-num-cell">
+      <div class="big-num">±8<em>%</em></div>
+      <p>Annual USD/IDR volatility range. Enough to wipe the thin margins of small exporters in a single invoice cycle.</p>
+    </div>
+    <div class="big-num-cell">
+      <div class="big-num">$50</div>
+      <p>Typical premium to hedge USD 5,000 for 30 days. Scales to your needs, not an ISDA contract.</p>
+    </div>
+    <div class="big-num-cell">
+      <div class="big-num">5<em>'</em></div>
+      <p>Minutes from wallet connect to your first option purchased. No onboarding, no queue.</p>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section id="how" class="how-section">
+    <div class="how-header">
+      <span class="ed-eyebrow">How It Works</span>
+      <h2>Four steps to your first option.</h2>
+    </div>
+    <div class="how-grid">
+      <div class="how-item">
+        <span class="how-num">01 / 04</span>
+        <h3>Connect your wallet</h3>
+        <p>Backpack, Phantom, or Solflare. Your wallet is your identity — no extra KYC.</p>
+      </div>
+      <div class="how-item">
+        <span class="how-num">02 / 04</span>
+        <h3>Pick a profile &amp; size</h3>
+        <p>Exporter or importer. Enter your transaction value in either currency — the system converts automatically.</p>
+      </div>
+      <div class="how-item">
+        <span class="how-num">03 / 04</span>
+        <h3>Pay the premium</h3>
+        <p>Real-time quotes from on-chain market makers. Premium held by smart contract — no counterparty risk.</p>
+      </div>
+      <div class="how-item">
+        <span class="how-num">04 / 04</span>
+        <h3>Auto-settle</h3>
+        <p>At expiry, payout flows to your wallet if the option is ITM. No manual claims, no bank lines.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Persona case -->
+  <section class="case">
+    <div class="case-art">
+      <img src="/flags/Indonesia.jpg" alt="Ratna, a furniture exporter from Jepara" />
+    </div>
+    <div class="case-content">
+      <span class="ed-eyebrow">Case Study</span>
+      <h2>Ratna exports furniture to the US.</h2>
+      <p>Invoice <strong>USD 10,000</strong>, paid 30 days after shipment. Today USD/IDR is at <strong>Rp 16,000</strong>. If the rupiah strengthens to 15,000 before the invoice clears, Ratna loses <strong>Rp 10 million</strong>.</p>
+      <span class="ledger bad">Without hedging: potential loss of <strong>Rp 10,000,000</strong> if rupiah strengthens 6%.</span>
+      <span class="ledger ok">Buy a 30d put with 16,000 strike on Kodrat, premium <strong>~$180</strong>. Worst case: lose the $180 premium. Best case: <strong>$625</strong> payout covers the rupiah loss.</span>
+      <p style="margin-top:18px">This isn't a speculation tool. It's exchange-rate insurance — usually only available to corporates with ISDA agreements and million-dollar notional minimums.</p>
+    </div>
+  </section>
+
+  <!-- Chibi gallery — global community wall -->
+  <section class="chibi-section">
+    <span class="ed-eyebrow">Global Community</span>
+    <h2>FX volatility <em>knows no</em> borders.</h2>
+    <p>Small exporters in Vietnam, Bangladesh, or Argentina face the same FX challenges — without access to corporate hedging tools. Kodrat is built for all of them. Rupiah focus today, global tomorrow.</p>
+    <div class="chibi-wall">
+      <div class="chibi-tile featured"><img src="/flags/Indonesia.jpg" alt="Indonesia" /><span class="chibi-tile-label">Indonesia</span></div>
+      <div class="chibi-tile featured"><img src="/flags/Japan.jpg" alt="Japan" /><span class="chibi-tile-label">Japan</span></div>
+      <div class="chibi-tile featured"><img src="/flags/usa.jpg" alt="USA" /><span class="chibi-tile-label">USA</span></div>
+      <div class="chibi-tile featured"><img src="/flags/China.jpg" alt="China" /><span class="chibi-tile-label">China</span></div>
+      <div class="chibi-tile"><img src="/flags/korsel.jpg" alt="South Korea" /><span class="chibi-tile-label">Korea</span></div>
+      <div class="chibi-tile"><img src="/flags/malaysia.jpg" alt="Malaysia" /><span class="chibi-tile-label">Malaysia</span></div>
+      <div class="chibi-tile"><img src="/flags/thailand.jpg" alt="Thailand" /><span class="chibi-tile-label">Thailand</span></div>
+      <div class="chibi-tile"><img src="/flags/philippines.jpg" alt="Philippines" /><span class="chibi-tile-label">Philippines</span></div>
+      <div class="chibi-tile"><img src="/flags/vietnam.jpg" alt="Vietnam" /><span class="chibi-tile-label">Vietnam</span></div>
+      <div class="chibi-tile"><img src="/flags/india.jpg" alt="India" /><span class="chibi-tile-label">India</span></div>
+      <div class="chibi-tile"><img src="/flags/pakistan.jpg" alt="Pakistan" /><span class="chibi-tile-label">Pakistan</span></div>
+      <div class="chibi-tile"><img src="/flags/bangladesh.jpg" alt="Bangladesh" /><span class="chibi-tile-label">Bangladesh</span></div>
+      <div class="chibi-tile"><img src="/flags/germany.jpg" alt="Germany" /><span class="chibi-tile-label">Germany</span></div>
+      <div class="chibi-tile"><img src="/flags/france.jpg" alt="France" /><span class="chibi-tile-label">France</span></div>
+      <div class="chibi-tile"><img src="/flags/inggris.jpg" alt="UK" /><span class="chibi-tile-label">UK</span></div>
+      <div class="chibi-tile"><img src="/flags/netherlands.jpg" alt="Netherlands" /><span class="chibi-tile-label">Netherlands</span></div>
+      <div class="chibi-tile"><img src="/flags/italy.jpg" alt="Italy" /><span class="chibi-tile-label">Italy</span></div>
+      <div class="chibi-tile"><img src="/flags/spain.jpg" alt="Spain" /><span class="chibi-tile-label">Spain</span></div>
+      <div class="chibi-tile"><img src="/flags/portugal.jpg" alt="Portugal" /><span class="chibi-tile-label">Portugal</span></div>
+      <div class="chibi-tile"><img src="/flags/belgium.jpg" alt="Belgium" /><span class="chibi-tile-label">Belgium</span></div>
+      <div class="chibi-tile"><img src="/flags/switzerland.jpg" alt="Switzerland" /><span class="chibi-tile-label">Switzerland</span></div>
+      <div class="chibi-tile"><img src="/flags/sweden.jpg" alt="Sweden" /><span class="chibi-tile-label">Sweden</span></div>
+      <div class="chibi-tile"><img src="/flags/norway.jpg" alt="Norway" /><span class="chibi-tile-label">Norway</span></div>
+      <div class="chibi-tile"><img src="/flags/denmark.jpg" alt="Denmark" /><span class="chibi-tile-label">Denmark</span></div>
+      <div class="chibi-tile"><img src="/flags/poland.jpg" alt="Poland" /><span class="chibi-tile-label">Poland</span></div>
+      <div class="chibi-tile"><img src="/flags/czechia.jpg" alt="Czechia" /><span class="chibi-tile-label">Czechia</span></div>
+      <div class="chibi-tile"><img src="/flags/hungary.jpg" alt="Hungary" /><span class="chibi-tile-label">Hungary</span></div>
+      <div class="chibi-tile"><img src="/flags/greece.jpg" alt="Greece" /><span class="chibi-tile-label">Greece</span></div>
+      <div class="chibi-tile"><img src="/flags/iceland.jpg" alt="Iceland" /><span class="chibi-tile-label">Iceland</span></div>
+      <div class="chibi-tile"><img src="/flags/ireland.jpg" alt="Ireland" /><span class="chibi-tile-label">Ireland</span></div>
+      <div class="chibi-tile"><img src="/flags/russia.jpg" alt="Russia" /><span class="chibi-tile-label">Russia</span></div>
+      <div class="chibi-tile"><img src="/flags/turkey.jpg" alt="Turkey" /><span class="chibi-tile-label">Turkey</span></div>
+      <div class="chibi-tile"><img src="/flags/saudiarabia.jpg" alt="Saudi Arabia" /><span class="chibi-tile-label">Saudi Arabia</span></div>
+      <div class="chibi-tile"><img src="/flags/canada.jpg" alt="Canada" /><span class="chibi-tile-label">Canada</span></div>
+      <div class="chibi-tile"><img src="/flags/mexico.jpg" alt="Mexico" /><span class="chibi-tile-label">Mexico</span></div>
+      <div class="chibi-tile"><img src="/flags/brazil.jpg" alt="Brazil" /><span class="chibi-tile-label">Brazil</span></div>
+      <div class="chibi-tile"><img src="/flags/argentina.jpg" alt="Argentina" /><span class="chibi-tile-label">Argentina</span></div>
+      <div class="chibi-tile"><img src="/flags/chile.jpg" alt="Chile" /><span class="chibi-tile-label">Chile</span></div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="final-cta">
+    <h2>FX hedging, <em>for businesses of every size</em>.</h2>
+    <a href="/app.html" class="btn-ink">Get Started →</a>
+  </section>
+
+  <!-- Footer -->
+  <footer class="ed-footer">
+    <div>
+      <strong style="color:var(--text)">Kodrat</strong> · 2026 · Built on Solana · Devnet beta
+    </div>
+    <div class="ed-flags" aria-hidden="true">
+      <img class="ed-flag" src="/flags/Indonesia.jpg" alt="" />
+      <img class="ed-flag" src="/flags/Japan.jpg" alt="" />
+      <img class="ed-flag" src="/flags/usa.jpg" alt="" />
+    </div>
+  </footer>
+
+</main>
+
+</body>
+</html>

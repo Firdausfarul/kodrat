@@ -1,0 +1,1474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280, initial-scale=1">
+<title>Kodrat — Pitch Deck</title>
+<link rel="icon" type="image/svg+xml" href="../option_protocol/frontend/public/favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500;1,9..144,600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    /* ── Lifted from option_protocol/frontend/style.css ── */
+    --bg: #fbf6ec;
+    --bg2: #f4ecd9;
+    --card: #ffffff;
+    --card-hover: #fdfaf3;
+    --paper: #f8f1e3;
+
+    --border: rgba(13,21,48,0.08);
+    --border-soft: rgba(13,21,48,0.05);
+    --border-strong: rgba(13,21,48,0.16);
+    --border-focus: rgba(220,74,44,0.35);
+
+    --text: #0d1530;
+    --text2: #555363;
+    --text3: #92897e;
+    --text-on-accent: #ffffff;
+
+    --accent: #dc4a2c;
+    --accent2: #e76f54;
+    --accent3: #c43820;
+    --accent-glow: rgba(220,74,44,0.18);
+    --accent-cool: #1a8a7c;
+    --accent-deep: #0d1530;
+    --gold: #c9a04e;
+
+    --green: #1a7a5e;
+    --green-glow: rgba(26,122,94,0.16);
+    --red: #c4302b;
+    --amber: #d4881a;
+
+    --shadow-sm: 0 1px 3px rgba(13,21,48,0.06), 0 1px 2px rgba(13,21,48,0.04);
+    --shadow-md: 0 4px 18px rgba(13,21,48,0.06), 0 2px 6px rgba(13,21,48,0.04);
+    --shadow-lg: 0 12px 40px rgba(13,21,48,0.08), 0 4px 12px rgba(13,21,48,0.05);
+    --shadow-glow: 0 8px 28px var(--accent-glow);
+
+    --radius: 18px;
+    --radius-sm: 12px;
+    --radius-xs: 8px;
+    --font: "Inter", system-ui, -apple-system, sans-serif;
+    --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font);
+    font-feature-settings: "ss01", "cv11";
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* ── Slide frame (same 16:9 print sizing as before) ── */
+  .slide {
+    width: 1280px;
+    height: 720px;
+    position: relative;
+    overflow: hidden;
+    padding: 56px 80px;
+    background: var(--bg);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .slide::before {
+    content: "";
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 70% 40% at 50% -10%, rgba(220,74,44,0.08), transparent 70%),
+      radial-gradient(ellipse 50% 35% at 88% 92%, rgba(26,138,124,0.05), transparent 70%),
+      radial-gradient(ellipse 45% 30% at 8% 60%, rgba(13,21,48,0.04), transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  /* Brand stripe (same as ed-nav top stripe) */
+  .slide::after {
+    content: "";
+    position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--accent) 0%, var(--gold) 50%, var(--green) 100%);
+    z-index: 2;
+  }
+  .slide > * { position: relative; z-index: 1; }
+
+  /* Screen-only chrome */
+  @media screen {
+    body { padding: 48px 0; min-height: 100vh; background: #ece4d3; }
+    .slide {
+      margin: 0 auto 48px;
+      border-radius: 18px;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--border);
+    }
+    .toolbar {
+      position: fixed; top: 16px; right: 16px;
+      background: var(--card); border: 1px solid var(--border-strong);
+      backdrop-filter: blur(12px);
+      padding: 10px 14px; border-radius: 10px;
+      font-size: 12px; color: var(--text2);
+      z-index: 100;
+      font-family: var(--font);
+      box-shadow: var(--shadow-md);
+    }
+    .toolbar kbd {
+      background: var(--paper); padding: 2px 6px; border-radius: 4px;
+      border: 1px solid var(--border); color: var(--text);
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    }
+  }
+
+  @media print {
+    @page { size: 13.333in 7.5in; margin: 0; }
+    body { background: var(--bg); padding: 0; margin: 0; }
+    .slide {
+      page-break-after: always;
+      break-after: page;
+      border-radius: 0;
+      box-shadow: none;
+      border: none;
+      margin: 0;
+    }
+    .slide:last-child { page-break-after: auto; break-after: auto; }
+    .toolbar { display: none; }
+  }
+
+  /* ── Slide header / footer ── */
+  .slide-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    color: var(--text3);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  .slide-header .brand {
+    display: inline-flex; align-items: center; gap: 10px;
+    color: var(--text2);
+  }
+  .slide-header .brand-mark {
+    width: 24px; height: 24px; border-radius: 7px;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent3) 100%);
+    color: var(--text-on-accent);
+    display: inline-flex; align-items: center; justify-content: center;
+    font-family: var(--font-display); font-weight: 600; font-size: 14px;
+    line-height: 1; padding-top: 1px; letter-spacing: -0.5px;
+    box-shadow: 0 2px 8px var(--accent-glow);
+    position: relative;
+  }
+  .slide-header .brand-mark::after {
+    content: ""; position: absolute; bottom: 3px; right: 3px;
+    width: 3px; height: 3px; border-radius: 50%; background: var(--gold);
+  }
+  .slide-header .num {
+    font-variant-numeric: tabular-nums;
+    color: var(--text3);
+  }
+
+  /* ── Eyebrow (matches .ed-eyebrow) ── */
+  .eyebrow {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 18px;
+    padding-bottom: 4px;
+    border-bottom: 1.5px solid var(--accent);
+  }
+
+  /* ── Display typography (Fraunces) ── */
+  .display {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -2.2px;
+    line-height: 0.96;
+    color: var(--text);
+    font-feature-settings: "ss01";
+  }
+  .display em { font-style: italic; font-weight: 400; color: var(--accent); }
+
+  h1.display { font-size: 116px; }
+  h2.display { font-size: 56px; line-height: 1.04; letter-spacing: -1.6px; }
+  h3.display { font-size: 26px; line-height: 1.2; letter-spacing: -0.5px; font-weight: 600; }
+
+  .lede {
+    font-size: 22px;
+    color: var(--text2);
+    line-height: 1.55;
+    max-width: 780px;
+    font-weight: 400;
+  }
+  .lede strong { color: var(--text); font-weight: 600; }
+
+  p { line-height: 1.55; color: var(--text2); font-size: 14.5px; }
+  .tabular { font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }
+
+  /* ── Cards ── */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 26px;
+    box-shadow: var(--shadow-sm);
+  }
+  .card.paper { background: var(--paper); }
+  .card.accent {
+    border-color: rgba(220,74,44,0.22);
+    background: linear-gradient(135deg, rgba(220,74,44,0.06), rgba(201,160,78,0.04));
+  }
+
+  /* ── Layout helpers ── */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .stack  { display: flex; flex-direction: column; gap: 18px; }
+
+  /* ─────────────── SLIDE 1: TITLE ─────────────── */
+  .slide-title { padding: 72px 80px; }
+  .global-map-art {
+    position: absolute; right: 74px; top: 50%; transform: translateY(-50%);
+    width: 426px; height: 426px; z-index: 1;
+    background:
+      linear-gradient(135deg, rgba(255,255,255,0.92), rgba(248,241,227,0.82)),
+      radial-gradient(circle at 68% 31%, rgba(220,74,44,0.14), transparent 32%),
+      radial-gradient(circle at 33% 66%, rgba(26,138,124,0.12), transparent 30%);
+    border: 1px solid var(--border);
+    border-radius: 28px;
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+  }
+  .global-map-art::before {
+    content: "";
+    position: absolute; inset: 26px;
+    border: 1px solid rgba(13,21,48,0.06);
+    border-radius: 24px;
+    background-image:
+      linear-gradient(rgba(13,21,48,0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(13,21,48,0.035) 1px, transparent 1px);
+    background-size: 34px 34px;
+  }
+  .global-map-art::after {
+    content: "GLOBAL TRADE / FX";
+    position: absolute; left: 30px; top: 28px;
+    font-size: 11px; font-weight: 800; letter-spacing: 1.4px;
+    color: var(--text3);
+  }
+  .real-world-map,
+  .map-route-svg {
+    position: absolute; inset: 62px 26px 66px;
+    width: calc(100% - 52px); height: calc(100% - 128px);
+  }
+  .real-world-map {
+    object-fit: contain;
+    opacity: 0.22;
+    filter: saturate(0) brightness(0.48);
+    mix-blend-mode: multiply;
+    pointer-events: none;
+  }
+  .trade-path {
+    fill: none;
+    stroke: var(--accent);
+    stroke-width: 5.5;
+    stroke-linecap: round;
+    stroke-dasharray: 14 16;
+    opacity: 0.88;
+  }
+  .trade-path.cool { stroke: var(--green); opacity: 0.74; }
+  .trade-node {
+    fill: var(--bg);
+    stroke: var(--accent3);
+    stroke-width: 6;
+  }
+  .trade-node.cool { stroke: var(--green); }
+  .currency-chip {
+    position: absolute;
+    display: inline-flex; align-items: baseline; gap: 7px;
+    padding: 10px 13px;
+    border-radius: 14px;
+    background: rgba(255,255,255,0.94);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
+    color: var(--text);
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.2px;
+    font-variant-numeric: tabular-nums;
+  }
+  .currency-chip small {
+    color: var(--text3);
+    font-size: 10px;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+  }
+  .currency-chip.idr { right: 24px; bottom: 84px; }
+  .currency-chip.usd { left: 28px; top: 82px; }
+  .currency-chip.jpy { right: 38px; top: 118px; }
+  .trade-caption {
+    position: absolute; left: 30px; right: 30px; bottom: 28px;
+    display: flex; justify-content: space-between; align-items: center;
+    padding-top: 16px; border-top: 1px solid var(--border-soft);
+    color: var(--text2); font-size: 12px; line-height: 1.45;
+  }
+  .trade-caption strong {
+    color: var(--accent3);
+    font-family: var(--font-display);
+    font-size: 21px;
+    letter-spacing: -0.4px;
+  }
+
+  .slide-title .body { max-width: 660px; }
+  .slide-title .badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--paper);
+    border: 1px solid var(--border);
+    color: var(--text2);
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 28px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+  .slide-title .badge::before {
+    content: '';
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--green);
+    box-shadow: 0 0 10px var(--green-glow);
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.55; } }
+
+  .slide-title h1 { margin-bottom: 14px; }
+  .slide-title .ko-pron {
+    font-family: var(--font-display); font-style: italic; font-weight: 400;
+    color: var(--text3); font-size: 18px; margin-bottom: 22px;
+  }
+  .slide-title .lede { margin-bottom: 36px; }
+
+  .slide-title .meta {
+    display: flex; gap: 18px; align-items: center;
+    color: var(--text3); font-size: 12px;
+    letter-spacing: 0.5px; text-transform: uppercase; font-weight: 600;
+  }
+  .slide-title .meta .dot { color: var(--text3); opacity: 0.5; }
+
+  .slide-title-foot {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    color: var(--text3); font-size: 12px; letter-spacing: 0.5px;
+    text-transform: uppercase; font-weight: 600;
+  }
+  .slide-title-foot .ed-flags { display: flex; gap: 6px; }
+  .slide-title-foot .ed-flag {
+    width: 22px; height: 22px; border-radius: 50%; object-fit: cover;
+    opacity: 0.85; border: 1.5px solid var(--bg);
+  }
+
+  /* ─────────────── SLIDE 2: PROBLEM ─────────────── */
+  .problem-market-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(260px, 1fr);
+    gap: 18px;
+    margin: 12px 0 20px;
+  }
+  .rate-card {
+    background: rgba(255,255,255,0.78);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 22px 16px;
+    box-shadow: var(--shadow-sm);
+  }
+  .rate-card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    margin-bottom: 10px;
+  }
+  .rate-card h3 {
+    font-family: var(--font-display);
+    font-size: 23px;
+    line-height: 1.1;
+    letter-spacing: -0.5px;
+    color: var(--text);
+    font-weight: 600;
+  }
+  .rate-card h3 em {
+    color: var(--accent);
+    font-style: italic;
+    font-weight: 500;
+  }
+  .rate-change {
+    text-align: right;
+    color: var(--accent3);
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 28px;
+    line-height: 1;
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+  }
+  .rate-change span {
+    display: block;
+    margin-top: 5px;
+    color: var(--text3);
+    font-family: var(--font);
+    font-size: 10px;
+    line-height: 1.2;
+    letter-spacing: 0.9px;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+  .rate-chart {
+    width: 100%;
+    height: 112px;
+    display: block;
+  }
+  .rate-axis { stroke: rgba(13,21,48,0.10); stroke-width: 1; }
+  .rate-area { fill: rgba(220,74,44,0.10); }
+  .rate-line {
+    fill: none;
+    stroke: var(--accent3);
+    stroke-width: 4;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .rate-dot {
+    fill: var(--card);
+    stroke: var(--accent3);
+    stroke-width: 3;
+  }
+  .rate-label {
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 12px;
+    font-weight: 800;
+    fill: var(--text);
+  }
+  .rate-caption {
+    display: flex;
+    justify-content: space-between;
+    color: var(--text3);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+  }
+  .shock-card {
+    background: linear-gradient(135deg, rgba(220,74,44,0.08), rgba(26,138,124,0.04));
+    border: 1px solid rgba(220,74,44,0.18);
+    border-radius: var(--radius);
+    padding: 20px 22px;
+    box-shadow: var(--shadow-sm);
+  }
+  .shock-card .shock-kicker {
+    font-size: 10px;
+    color: var(--accent3);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-weight: 800;
+    margin-bottom: 9px;
+  }
+  .shock-card .shock-num {
+    font-family: var(--font-display);
+    font-size: 44px;
+    line-height: 1;
+    letter-spacing: -1.1px;
+    color: var(--text);
+    font-weight: 600;
+    margin-bottom: 9px;
+    font-variant-numeric: tabular-nums;
+  }
+  .shock-card .shock-num em {
+    color: var(--accent);
+    font-style: italic;
+    font-weight: 500;
+  }
+  .shock-card p {
+    font-size: 12.8px;
+    line-height: 1.55;
+  }
+  .problem-slide {
+    padding-top: 48px;
+    padding-bottom: 44px;
+  }
+  .problem-slide .eyebrow {
+    margin-bottom: 10px;
+  }
+  .problem-slide h2.display {
+    font-size: 46px;
+    line-height: 1.01;
+    letter-spacing: -1.2px;
+  }
+  .problem-slide .problem-market-grid {
+    margin: 8px 0 14px;
+  }
+  .problem-slide .rate-card {
+    padding: 16px 20px 12px;
+  }
+  .problem-slide .rate-card-head {
+    margin-bottom: 4px;
+  }
+  .problem-slide .rate-card h3 {
+    font-size: 21px;
+  }
+  .problem-slide .rate-chart {
+    height: 78px;
+  }
+  .problem-slide .shock-card {
+    padding: 16px 20px;
+  }
+  .problem-slide .shock-card .shock-kicker {
+    margin-bottom: 7px;
+  }
+  .problem-slide .shock-card .shock-num {
+    font-size: 37px;
+    margin-bottom: 7px;
+  }
+  .problem-slide .shock-card p {
+    font-size: 12px;
+    line-height: 1.48;
+  }
+  .problem-slide .vs-grid .col {
+    padding-top: 10px;
+  }
+  .problem-slide .vs-grid .col h4 {
+    margin-bottom: 8px;
+  }
+  .problem-slide .vs-grid .col h5 {
+    font-size: 18px;
+    margin-bottom: 6px;
+  }
+  .problem-slide .vs-grid li {
+    padding: 5px 0;
+    font-size: 13px;
+    line-height: 1.35;
+  }
+  .problem-slide .footnote {
+    font-size: 10.8px;
+    padding-top: 8px;
+  }
+  .stat-bar {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--border-soft);
+    border-bottom: 1px solid var(--border-soft);
+    padding: 28px 0;
+    margin: 14px 0 26px;
+  }
+  .stat-cell { padding: 0 28px; border-left: 1px solid var(--border-soft); }
+  .stat-cell:first-child { border-left: none; padding-left: 0; }
+  .stat-cell:last-child { padding-right: 0; }
+  .big-num {
+    font-family: var(--font-display);
+    font-size: 56px;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1;
+    margin-bottom: 10px;
+    letter-spacing: -1.6px;
+    font-variant-numeric: tabular-nums;
+  }
+  .big-num em { font-style: italic; color: var(--accent); font-weight: 500; }
+  .stat-cell p { font-size: 13px; color: var(--text2); line-height: 1.55; }
+
+  .vs-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+  }
+  .vs-grid .col {
+    padding-top: 14px;
+    border-top: 1.5px solid var(--text);
+  }
+  .vs-grid .col h4 {
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--accent);
+    letter-spacing: 0.5px;
+    margin-bottom: 14px;
+    font-variant-numeric: tabular-nums;
+  }
+  .vs-grid .col h5 {
+    font-family: var(--font-display);
+    font-size: 20px; font-weight: 600;
+    letter-spacing: -0.3px;
+    color: var(--text);
+    margin-bottom: 12px;
+  }
+  .vs-grid ul { list-style: none; }
+  .vs-grid li {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 9px 0;
+    font-size: 14px;
+    color: var(--text2);
+    line-height: 1.5;
+    border-bottom: 1px solid var(--border-soft);
+  }
+  .vs-grid li:last-child { border-bottom: none; }
+  .vs-grid li .mark {
+    flex-shrink: 0;
+    width: 18px; height: 18px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 50%;
+    font-size: 11px;
+    font-weight: 700;
+    margin-top: 2px;
+  }
+  .vs-grid .bad .mark { background: rgba(196,48,43,0.10); color: var(--red); }
+  .vs-grid .good .mark { background: rgba(26,122,94,0.10); color: var(--green); }
+  .vs-grid li strong { color: var(--text); font-weight: 600; }
+
+  /* ─────────────── SLIDE 3: SOLUTION ─────────────── */
+  .role-card {
+    padding: 28px 26px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    height: 100%;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  }
+  .role-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); border-color: var(--border-focus); }
+  .role-card .role-num {
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--accent);
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+    font-variant-numeric: tabular-nums;
+  }
+  .role-card h3 { margin-bottom: 6px; }
+  .role-card p { font-size: 13.5px; line-height: 1.6; }
+  .role-card .role-detail {
+    font-size: 12px;
+    color: var(--text);
+    margin-top: auto;
+    padding: 10px 14px;
+    border-radius: var(--radius-xs);
+    background: var(--paper);
+    font-style: italic;
+    font-family: var(--font-display);
+    font-weight: 500;
+  }
+  .role-card.accent {
+    border-color: rgba(220,74,44,0.25);
+    background: linear-gradient(135deg, rgba(220,74,44,0.05), rgba(26,138,124,0.02));
+  }
+  .role-card.accent .role-detail {
+    background: rgba(220,74,44,0.08);
+    color: var(--accent3);
+  }
+
+  /* ─────────────── SLIDE 4: DEMO / CASE ─────────────── */
+  .case-layout {
+    display: grid;
+    grid-template-columns: 380px 1fr;
+    gap: 48px;
+    flex: 1;
+    align-items: center;
+  }
+  .case-art {
+    position: relative;
+    aspect-ratio: 1 / 1;
+  }
+  .case-art img {
+    width: 100%; height: 100%; object-fit: cover;
+    border-radius: 20px; box-shadow: var(--shadow-md);
+    border: 1px solid var(--border);
+  }
+  .case-art .case-tag {
+    position: absolute; bottom: 14px; left: 14px;
+    padding: 7px 14px; border-radius: 14px;
+    background: rgba(255,255,255,0.94); color: var(--text);
+    font-size: 11px; font-weight: 700; letter-spacing: 0.4px;
+    backdrop-filter: blur(8px);
+    text-transform: uppercase;
+  }
+  .ledger {
+    display: block;
+    padding: 14px 18px;
+    border-radius: 10px;
+    background: var(--paper);
+    border-left: 3px solid var(--text3);
+    font-size: 14px;
+    color: var(--text);
+    font-style: italic;
+    line-height: 1.6;
+    margin-bottom: 12px;
+    font-family: var(--font-display);
+    font-weight: 500;
+  }
+  .ledger strong { font-weight: 700; font-style: normal; font-family: var(--font); }
+  .ledger.ok  { border-left-color: var(--green); background: rgba(26,122,94,0.05); }
+  .ledger.bad { border-left-color: var(--red);   background: rgba(196,48,43,0.04); }
+
+  .storyboard {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-top: 14px;
+  }
+  .story-step {
+    padding: 14px 16px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-sm);
+  }
+  .story-step .ts {
+    font-family: var(--font-display);
+    font-size: 12px;
+    color: var(--accent);
+    margin-bottom: 6px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+  }
+  .story-step .desc {
+    font-size: 12.5px;
+    color: var(--text2);
+    line-height: 1.5;
+  }
+
+  /* ─────────────── SLIDE 5: ARCHITECTURE ─────────────── */
+  .arch-diagram {
+    background: var(--paper);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 24px 26px;
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 12.5px;
+    line-height: 1.65;
+    color: var(--text);
+    white-space: pre;
+    overflow: hidden;
+  }
+  .arch-diagram .arrow { color: var(--accent); }
+  .arch-diagram .ok { color: var(--green); }
+  .arch-diagram .label { color: var(--text3); font-style: italic; }
+
+  .formula {
+    background: rgba(220,74,44,0.05);
+    border: 1px solid rgba(220,74,44,0.15);
+    border-radius: var(--radius-xs);
+    padding: 14px 18px;
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.7;
+  }
+  .formula .v { color: var(--accent3); font-weight: 600; }
+  .formula .c { color: var(--text3); }
+
+  .stack-table {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    gap: 8px 18px;
+    font-size: 13px;
+  }
+  .stack-table .k {
+    font-family: var(--font-display); font-weight: 600;
+    color: var(--accent); letter-spacing: 0.3px;
+  }
+  .stack-table .v {
+    color: var(--text);
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 12.5px;
+  }
+
+  /* ─────────────── SLIDES 6 + 7: COST / LATENCY ─────────────── */
+  .compare-card { padding: 26px 28px; }
+  .compare-card h3 {
+    font-family: var(--font-display); font-size: 18px; font-weight: 600;
+    margin-bottom: 16px; letter-spacing: -0.3px;
+  }
+  .cost-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px;
+    background: var(--paper);
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius-xs);
+    margin-bottom: 8px;
+  }
+  .cost-row:last-of-type { margin-bottom: 0; }
+  .cost-row .chain {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .cost-row .chain .badge {
+    padding: 3px 8px; border-radius: 8px; font-size: 10px; font-weight: 700;
+    background: rgba(220,74,44,0.1); color: var(--accent3); letter-spacing: 0.3px;
+  }
+  .cost-row .price {
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 17px;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+  .cost-row .price.good { color: var(--green); }
+  .cost-row .price.bad  { color: var(--red); }
+  .cost-row .price.mid  { color: var(--amber); }
+  .compare-card .note {
+    font-size: 12.5px; color: var(--text2); margin-top: 14px; line-height: 1.55;
+    font-style: italic; font-family: var(--font-display); font-weight: 500;
+  }
+  .compare-card .note strong { color: var(--accent3); font-weight: 700; font-style: normal; font-family: var(--font); }
+
+  .data-list { display: flex; flex-direction: column; gap: 10px; }
+  .data-item {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    gap: 16px;
+    align-items: baseline;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border-soft);
+  }
+  .data-item:last-child { border-bottom: none; }
+  .data-item .val {
+    font-family: var(--font-display);
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--text);
+    letter-spacing: -0.6px;
+    font-variant-numeric: tabular-nums;
+  }
+  .data-item .val em { font-style: italic; color: var(--accent); font-weight: 500; }
+  .data-item .desc { font-size: 13px; color: var(--text2); line-height: 1.5; }
+
+  .feat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 18px; }
+  .feat-card {
+    padding: 16px 18px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+  }
+  .feat-card .feat-tag {
+    font-family: var(--font-display);
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--accent);
+    letter-spacing: 0.3px;
+    margin-bottom: 8px;
+    font-variant-numeric: tabular-nums;
+  }
+  .feat-card .feat-desc { font-size: 12.5px; color: var(--text2); line-height: 1.5; }
+  .feat-card .feat-desc strong { color: var(--text); font-weight: 600; }
+
+  /* ─────────────── SLIDE 8: TEAM / ROADMAP / ASK ─────────────── */
+  .builder-card {
+    padding: 28px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--shadow-sm);
+  }
+  .avatar {
+    width: 72px; height: 72px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent3) 100%);
+    margin-bottom: 18px;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--text-on-accent); font-family: var(--font-display);
+    font-weight: 600; font-size: 32px;
+    box-shadow: 0 4px 14px var(--accent-glow);
+    position: relative; padding-top: 2px;
+  }
+  .avatar::after {
+    content: ""; position: absolute; bottom: 6px; right: 6px;
+    width: 5px; height: 5px; border-radius: 50%; background: var(--gold);
+  }
+  .builder-name { font-family: var(--font-display); font-size: 26px; font-weight: 600; letter-spacing: -0.5px; margin-bottom: 4px; color: var(--text); }
+  .builder-handle { font-size: 12px; color: var(--text3); margin-bottom: 18px; letter-spacing: 0.3px; font-weight: 600; text-transform: uppercase; }
+  .builder-card p { font-size: 14px; line-height: 1.6; }
+
+  .roadmap-step {
+    display: grid; grid-template-columns: 100px 1fr; gap: 16px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border-soft);
+    align-items: baseline;
+  }
+  .roadmap-step:last-child { border-bottom: none; }
+  .roadmap-step .when {
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--accent);
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+  }
+  .roadmap-step .what {
+    font-size: 13.5px;
+    color: var(--text2);
+    line-height: 1.5;
+  }
+  .roadmap-step .what strong { color: var(--text); font-weight: 600; }
+
+  .ask-list { display: flex; flex-direction: column; gap: 12px; }
+  .ask-list li {
+    list-style: none;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.5;
+  }
+  .ask-list li .ask-num {
+    flex-shrink: 0;
+    width: 30px; height: 30px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 10px;
+    background: rgba(220,74,44,0.10);
+    color: var(--accent3);
+    font-family: var(--font-display);
+    font-size: 14px;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+  .ask-list li strong { color: var(--text); font-weight: 700; }
+  .ask-list li span span.sub { color: var(--text2); font-weight: 400; }
+
+  /* ─────────────── CLOSING SLIDE ─────────────── */
+  .closing-art {
+    position: absolute; right: 80px; bottom: 80px;
+    display: flex; gap: 8px;
+    z-index: 0;
+  }
+  .closing-art img {
+    width: 56px; height: 56px; border-radius: 50%; object-fit: cover;
+    border: 2px solid var(--bg); box-shadow: var(--shadow-sm);
+    opacity: 0.85;
+  }
+  .closing-link {
+    color: var(--accent3); font-weight: 600;
+    border-bottom: 1.5px solid var(--accent);
+  }
+
+  /* Editable placeholder marker */
+  .placeholder {
+    background: rgba(212,136,26,0.10);
+    border: 1px dashed rgba(212,136,26,0.45);
+    color: var(--amber);
+    padding: 0 6px;
+    border-radius: 4px;
+    font-size: 0.92em;
+    font-weight: 600;
+  }
+
+  /* Footnote */
+  .footnote {
+    font-size: 11.5px;
+    color: var(--text3);
+    letter-spacing: 0.05em;
+    margin-top: auto;
+    padding-top: 14px;
+    border-top: 1px solid var(--border-soft);
+    line-height: 1.55;
+  }
+  .footnote strong { color: var(--text); font-weight: 600; }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  Print: <kbd>Ctrl</kbd>+<kbd>P</kbd> · Save as PDF · Margins: None · Background graphics: ON
+</div>
+
+<!-- ───────────────── SLIDE 1: TITLE ───────────────── -->
+<section class="slide slide-title">
+  <div class="body">
+    <span class="badge">Solana · Devnet beta · SME FX protection</span>
+    <h1 class="display">Kodrat<em>.</em></h1>
+    <p class="ko-pron">[ko·drat] — destiny, the inevitable, the rate that <em>does what it wants</em>.</p>
+    <p class="lede">
+      Bank-grade FX hedging for small exporters and importers.<br>
+      Buy short-tenor currency protection from <strong>USD 5,000</strong> exposure.<br>
+      No bank desk, no ISDA, no million-dollar minimum.
+    </p>
+    <div class="meta">
+      <span>Anchor 1.0</span>
+      <span class="dot">·</span>
+      <span>RFQ + signed quotes</span>
+      <span class="dot">·</span>
+      <span>USDC cash-settled</span>
+    </div>
+  </div>
+
+  <div class="global-map-art" aria-label="Global trade currency exchange map">
+    <img class="real-world-map" src="assets/world-map.svg" alt="" />
+    <svg class="map-route-svg" viewBox="0 0 950 620" role="img" aria-label="Trade routes between the US, Indonesia, Japan, and China">
+      <path class="trade-path" d="M170 246C305 120 560 116 788 337" />
+      <path class="trade-path cool" d="M787 337C745 305 725 289 692 277" />
+      <path class="trade-path" d="M692 277C735 224 801 235 847 321" />
+
+      <circle class="trade-node" cx="170" cy="246" r="14" />
+      <circle class="trade-node cool" cx="787" cy="337" r="14" />
+      <circle class="trade-node" cx="692" cy="277" r="13" />
+      <circle class="trade-node cool" cx="847" cy="321" r="12" />
+    </svg>
+    <div class="currency-chip usd"><small>USD</small>17.4K IDR</div>
+    <div class="currency-chip jpy"><small>JPY</small>cross FX</div>
+    <div class="currency-chip idr"><small>IDR</small>SME hedge</div>
+    <div class="trade-caption">
+      <span>Invoices move globally.<br>Margins are local.</span>
+      <strong>USDC-settled</strong>
+    </div>
+  </div>
+
+  <div class="slide-title-foot">
+    <span><span class="placeholder">[Your name / handle]</span></span>
+    <div class="ed-flags">
+      <img class="ed-flag" src="../option_protocol/frontend/public/flags/Indonesia.jpg" alt="" />
+      <img class="ed-flag" src="../option_protocol/frontend/public/flags/Japan.jpg" alt="" />
+      <img class="ed-flag" src="../option_protocol/frontend/public/flags/usa.jpg" alt="" />
+    </div>
+  </div>
+</section>
+
+<!-- ───────────────── SLIDE 2: PROBLEM ───────────────── -->
+<section class="slide problem-slide">
+  <div class="slide-header">
+    <span class="brand"><span class="brand-mark">K</span>Kodrat · Problem</span>
+    <span class="num">01 / 08</span>
+  </div>
+
+  <div>
+    <span class="eyebrow">FX Risk · Rupiah volatility</span>
+    <h2 class="display">USD/IDR moved from 17,000 to 17,400.<br>For SMEs, that is <em>working-capital risk</em>.</h2>
+  </div>
+
+  <div class="problem-market-grid">
+    <div class="rate-card">
+      <div class="rate-card-head">
+        <h3>Hackathon-week USD/IDR move:<br><em>17,000 → 17,400</em></h3>
+        <div class="rate-change">+2.4%<span>more rupiah per USD</span></div>
+      </div>
+      <svg class="rate-chart" viewBox="0 0 690 112" role="img" aria-label="USD IDR rate rising from 17,000 to 17,400">
+        <line class="rate-axis" x1="24" y1="96" x2="666" y2="96" />
+        <line class="rate-axis" x1="24" y1="68" x2="666" y2="68" />
+        <line class="rate-axis" x1="24" y1="40" x2="666" y2="40" />
+        <path class="rate-area" d="M24 92C112 88 154 79 213 70C286 59 342 56 411 45C501 30 562 19 628 18L628 96L24 96Z" />
+        <path class="rate-line" d="M24 92C112 88 154 79 213 70C286 59 342 56 411 45C501 30 562 19 628 18" />
+        <circle class="rate-dot" cx="24" cy="92" r="5" />
+        <circle class="rate-dot" cx="628" cy="18" r="6" />
+        <text class="rate-label" x="30" y="84">17,000</text>
+        <text class="rate-label" x="558" y="14">17,400</text>
+      </svg>
+      <div class="rate-caption">
+        <span>Hackathon start</span>
+        <span>BI intervention headlines</span>
+        <span>Today</span>
+      </div>
+    </div>
+    <div class="shock-card">
+      <div class="shock-kicker">Rupiah shenanigans</div>
+      <div class="shock-num">Rp 8,170<em>?</em></div>
+      <p>A viral Google glitch made USD/IDR look half-priced while BI's reference was around Rp 16,340. That trust gap is exactly why SMEs need explicit protection, not vibes.</p>
+    </div>
+  </div>
+
+  <div class="vs-grid">
+    <div class="col">
+      <h4>01 / Bank FX option · status quo</h4>
+      <h5 class="display" style="font-family: var(--font-display); font-style: italic; font-weight: 500;">Built for treasury teams, not workshops.</h5>
+      <ul>
+        <li class="bad"><span class="mark">×</span><span>Minimum notional <strong>USD 1M+</strong></span></li>
+        <li class="bad"><span class="mark">×</span><span>Corporate banking + ISDA agreement required</span></li>
+        <li class="bad"><span class="mark">×</span><span>Opaque pricing through relationship managers</span></li>
+        <li class="bad"><span class="mark">×</span><span>Slow settlement, paperwork, and high operational overhead</span></li>
+      </ul>
+    </div>
+    <div class="col">
+      <h4>02 / Reality of an SME exporter</h4>
+      <h5 class="display" style="font-family: var(--font-display); font-style: italic; font-weight: 500;">The invoice is global. The risk is personal.</h5>
+      <ul>
+        <li class="bad"><span class="mark">×</span><span>Average order ticket <strong>USD 5K–50K</strong></span></li>
+        <li class="bad"><span class="mark">×</span><span>Payment arrives weeks after goods are shipped</span></li>
+        <li class="bad"><span class="mark">×</span><span>Margin is too thin to absorb a 3-8% currency move or a bad rate decision</span></li>
+        <li class="bad"><span class="mark">×</span><span>Result: <strong style="color:var(--red)">FX volatility becomes business risk</strong></span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footnote">The recent Rupiah noise is the market wake-up call: incorrect public rate displays, official USD/IDR above Rp 17K, and central-bank intervention all point to the same SME problem.</div>
+</section>
+
+<!-- ───────────────── SLIDE 3: SOLUTION ───────────────── -->
+<section class="slide">
+  <div class="slide-header">
+    <span class="brand"><span class="brand-mark">K</span>Kodrat · Solution</span>
+    <span class="num">02 / 08</span>
+  </div>
+
+  <div>
+    <span class="eyebrow">Kodrat — Self-serve FX insurance</span>
+    <h2 class="display">Pick your exposure, pay a premium,<br>get paid if FX moves <em>against you</em>.</h2>
+    <p class="lede" style="margin-top: 14px;">Short-tenor FX options, quoted by market makers and cash-settled in <strong>USDC</strong>.</p>
+  </div>
+
+  <div class="grid-3" style="flex: 1;">
+    <div class="role-card">
+      <div class="role-num">01 / Buyer</div>
+      <h3 class="display">Hedge like a treasury,<br>without becoming one.</h3>
+      <p>Choose exporter or importer, pair, amount, and tenor. Kodrat translates the business problem into the right option and shows premium, strike, expiry, and payout scenarios.</p>
+      <div class="role-detail">→ User risk is limited to the premium paid.</div>
+    </div>
+    <div class="role-card">
+      <div class="role-num">02 / Market Maker</div>
+      <h3 class="display">Quote risk off-chain,<br>settle trustlessly.</h3>
+      <p>MMs register through an <code style="font-family: ui-monospace, monospace; color: var(--accent3); background: var(--paper); padding: 1px 5px; border-radius: 4px;">MmRegistry</code> PDA and sign RFQ quotes off-chain. The program verifies the signature before accepting a trade.</p>
+      <div class="role-detail">→ Day-1: one MM. v2: competitive marketplace.</div>
+    </div>
+    <div class="role-card accent">
+      <div class="role-num">03 / Settlement</div>
+      <h3 class="display">Transparent collateral,<br>automatic payout.</h3>
+      <p>Premiums and collateral sit in an MM USDC vault. At expiry, anyone can settle; the program reads the price feed and pays intrinsic value to the buyer.</p>
+      <div class="role-detail">→ USDC payout offsets the FX loss.</div>
+    </div>
+  </div>
+
+  <div class="footnote">Built on the <strong>option_protocol</strong> Anchor program · USD/IDR, USD/JPY, JPY/IDR, CNY/IDR, CNY/USD · 7 / 30 / 60d · USDC-settled.</div>
+</section>
+
+<!-- ───────────────── SLIDE 4: DEMO / CASE ───────────────── -->
+<section class="slide">
+  <div class="slide-header">
+    <span class="brand"><span class="brand-mark">K</span>Kodrat · Demo Case</span>
+    <span class="num">03 / 08</span>
+  </div>
+
+  <div>
+    <span class="eyebrow">90-second walkthrough</span>
+    <h2 class="display">Bu Ratna ships furniture from Jepara —<br>and turns FX risk into a <em>known premium</em>.</h2>
+  </div>
+
+  <div class="case-layout">
+    <div class="case-art">
+      <img src="../option_protocol/frontend/public/flags/Indonesia.jpg" alt="Bu Ratna · Jepara" />
+      <span class="case-tag">Bu Ratna · Jepara</span>
+    </div>
+    <div>
+      <p style="font-size: 16px; line-height: 1.7; color: var(--text2); margin-bottom: 14px;">
+        Invoice <strong style="color:var(--text)">USD 5,000</strong>, paid 60 days after shipment. Today USD/IDR is around <strong style="color:var(--text)">Rp 17,400</strong>. If the rupiah snaps back to 16,500 before the invoice clears, she loses <strong style="color:var(--text)">Rp 4,500,000</strong> on a margin that was already thin.
+      </p>
+      <span class="ledger bad">Without hedging — potential loss of <strong>Rp 4,500,000</strong> if rupiah strengthens about 5%.</span>
+      <span class="ledger ok">With Kodrat — buy a 60d put with a 17,400 strike, premium <strong>~USD 90</strong>. Worst case: lose the premium. If the rate moves against her, receive a USDC payout that offsets the FX loss.</span>
+    </div>
+  </div>
+
+  <div class="storyboard">
+    <div class="story-step">
+      <div class="ts">0:00 — 0:15</div>
+      <div class="desc">Persona: Jepara furniture exporter sends a USD 5K invoice, paid in 60 days. Her cost base is rupiah.</div>
+    </div>
+    <div class="story-step">
+      <div class="ts">0:15 — 0:45</div>
+      <div class="desc">Opens Kodrat. Picks "Exporter" + USD 5K + 60d. The MM bot returns strike, premium, and scenario payout.</div>
+    </div>
+    <div class="story-step">
+      <div class="ts">0:45 — 1:10</div>
+      <div class="desc">Accept the quote, sign the tx. Premium transferred, OptionPosition PDA created in &lt; 2s.</div>
+    </div>
+    <div class="story-step">
+      <div class="ts">1:10 — 1:30</div>
+      <div class="desc">Skip 60 days. Rupiah snaps back. Anyone calls settle → USDC payout flows to Bu Ratna's wallet.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────────── SLIDE 5: ARCHITECTURE ───────────────── -->
+<section class="slide">
+  <div class="slide-header">
+    <span class="brand"><span class="brand-mark">K</span>Kodrat · How it works</span>
+    <span class="num">04 / 08</span>
+  </div>
+
+  <div>
+    <span class="eyebrow">Architecture · RFQ Flow</span>
+    <h2 class="display">The bot prices risk. The program enforces<br>the deal and moves <em>USDC</em>.</h2>
+  </div>
+
+  <div class="grid-2" style="flex: 1; align-items: stretch;">
+    <div class="arch-diagram">  Buyer                MM Bot <span class="label">(off-chain)</span>          Anchor Program
+   │                       │                            │
+   │── request_quote <span class="arrow">─────▶</span>│                            │
+   │                       │  <span class="label">BS pricer + IV table</span>      │
+   │                       │  <span class="label">→ premium calc</span>             │
+   │                       │  <span class="label">→ ed25519 sign(quote)</span>      │
+   │<span class="arrow">◀──── signed_quote ────</span>│                            │
+   │                                                    │
+   │── accept_quote(sig) <span class="arrow">──────────────────────────▶</span>│
+   │                                                    │  <span class="ok">✓</span> verify ed25519 sig
+   │                                                    │  <span class="ok">✓</span> transfer premium (USDC)
+   │                                                    │  <span class="ok">✓</span> init OptionPosition PDA
+   │                                                    │
+   ⋮  <span class="label">(60 days later)</span>                              ⋮
+   │                                                    │
+   │── settle_option <span class="arrow">──────────────────────────────▶</span>│
+   │                                                    │  <span class="ok">✓</span> read PriceFeed
+   │                                                    │  <span class="ok">✓</span> payout intrinsic value</div>
+
+    <div class="stack">
+      <div class="card">
+        <h3 class="display" style="font-size: 18px; margin-bottom: 12px;">Pricing &amp; settlement</h3>
+        <div class="formula">
+          <span class="c"># Off-chain (MM bot)</span><br>
+          premium = ATM_option(<span class="v">spot</span>, <span class="v">tenor</span>, <span class="v">iv</span>)<br><br>
+          <span class="c"># On-chain (settlement)</span><br>
+          put = max(<span class="v">strike</span> − <span class="v">spot</span>, 0) × <span class="v">notional</span> / <span class="v">strike</span><br>
+          call = max(<span class="v">spot</span> − <span class="v">strike</span>, 0) × <span class="v">notional</span> / <span class="v">strike</span>
+        </div>
+      </div>
+      <div class="card">
+        <h3 class="display" style="font-size: 18px; margin-bottom: 14px;">Stack</h3>
+        <div class="stack-table">
+          <span class="k">Program</span><span class="v">Anchor 1.0 · Rust · 6 PDAs</span>
+          <span class="k">MM bot</span><span class="v">Rust · BS pricer · ed25519 sign</span>
+          <span class="k">Oracle</span><span class="v">Demo PriceFeed PDA · production: robust oracle</span>
+          <span class="k">Frontend</span><span class="v">Vanilla JS · Vite · /app RFQ flow</span>
+          <span class="k">Demo mode</span><span class="v">oracle staleness bypassed · disclosed in app</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────────── SLIDE 6: WHY SOLANA ───────────────── -->
+<section class="slide">
+  <div class="slide-header">
+    <span class="brand"><span class="brand-mark">K</span>Kodrat · Why Solana</span>
+    <span class="num">05 / 08</span>
+  </div>
+
+  <div>
+    <span class="eyebrow">Timing &amp; Infrastructure</span>
+    <h2 class="display">SME hedges only work when small tickets<br>are economically <em>worth serving</em>.</h2>
+  </div>
+
+  <div class="grid-2" style="flex: 1;">
+    <div class="card compare-card">
+      <h3>Cost per settlement (open + close)</h3>
+      <div class="cost-row">
+        <span class="chain">Solana <span class="badge">Kodrat</span></span>
+        <span class="price good">~$0.001</span>
+      </div>
+      <div class="cost-row">
+        <span class="chain">Ethereum L2 (Base)</span>
+        <span class="price mid">~$0.05</span>
+      </div>
+      <div class="cost-row">
+        <span class="chain">Ethereum L1</span>
+        <span class="price bad">~$5–50</span>
+      </div>
+      <div class="cost-row">
+        <span class="chain">Bank wire (BCA)</span>
+        <span class="price bad">$15 + 0.25%</span>
+      </div>
+      <p class="note">For a USD 50 premium, high transaction fees erase the product. Low fees let the minimum ticket fall to real SME order sizes.</p>
+    </div>
+
+    <div class="card compare-card">
+      <h3>Why now</h3>
+      <div class="data-list">
+        <div class="data-item">
+          <span class="val">~18<em>M</em></span>
+          <span class="desc">Crypto users in Indonesia have normalized wallet-based financial access.</span>
+        </div>
+        <div class="data-item">
+          <span class="val">8,170?</span>
+          <span class="desc">The viral Google rate glitch showed how quickly bad FX information can move through WhatsApp and trading decisions.</span>
+        </div>
+        <div class="data-item">
+          <span class="val">64<em>M</em></span>
+          <span class="desc">Indonesian SMEs face FX exposure without derivatives access.</span>
+        </div>
+        <div class="data-item">
+          <span class="val">Zero</span>
+          <span class="desc">Self-serve FX options for SME ticket sizes are still missing.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footnote">Solana gives Kodrat the cost profile of software, not banking infrastructure: small hedges, fast settlement, transparent collateral.</div>
+</section>
+
+<!-- ───────────────── SLIDE 7: WHY RFQ ON SOLANA ───────────────── -->
+<section class="slide">
+  <div class="slide-header">
+    <span class="brand"><span class="brand-mark">K</span>Kodrat · Why RFQ</span>
+    <span class="num">06 / 08</span>
+  </div>
+
+  <div>
+    <span class="eyebrow">Tech Feasibility</span>
+    <h2 class="display">RFQ turns derivatives into a marketplace,<br>not a balance-sheet <em>monopoly</em>.</h2>
+  </div>
+
+  <div class="grid-2" style="flex: 1;">
+    <div class="card compare-card">
+      <h3>Quote latency · end-to-end RFQ</h3>
+      <div class="cost-row">
+        <span class="chain">Solana <span class="badge">Kodrat</span></span>
+        <span class="price good">~1.2s</span>
+      </div>
+      <div class="cost-row">
+        <span class="chain">Ethereum L2 (Base)</span>
+        <span class="price mid">~4–8s</span>
+      </div>
+      <div class="cost-row">
+        <span class="chain">Ethereum L1</span>
+        <span class="price bad">~30–60s</span>
+      </div>
+      <p class="note">Options quotes expire quickly because spot and volatility move. Solana keeps quote acceptance inside the useful window.</p>
+    </div>
+
+    <div class="card compare-card">
+      <h3>Cost per accept / failed retry</h3>
+      <div class="cost-row">
+        <span class="chain">Solana <span class="badge">Kodrat</span></span>
+        <span class="price good">$0.001</span>
+      </div>
+      <div class="cost-row">
+        <span class="chain">Ethereum L2 (Base)</span>
+        <span class="price mid">$0.05</span>
+      </div>
+      <div class="cost-row">
+        <span class="chain">Ethereum L1</span>
+        <span class="price bad">$5–50</span>
+      </div>
+      <p class="note">Cheap retries allow tight spreads and a beginner-friendly UX: refresh quote, accept, settle, repeat.</p>
+    </div>
+  </div>
+
+  <div class="feat-grid">
+    <div class="feat-card">
+      <div class="feat-tag">400ms slot</div>
+      <div class="feat-desc">Quote-to-confirm is fast → quote is still <strong>fresh</strong> when it lands.</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-tag">ed25519 precompile</div>
+      <div class="feat-desc">Verify signed quote on-chain in ~100 CU — <strong>verification is nearly free</strong>.</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-tag">~50K TPS</div>
+      <div class="feat-desc">Multiple MMs can compete on premium — the user gets a <strong>market price</strong>, not a bank quote.</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-tag">Permissionless</div>
+      <div class="feat-desc">Anyone registers as MM via the <strong>MmRegistry</strong> PDA — open marketplace by default.</div>
+    </div>
+  </div>
+
+  <div class="footnote">RFQ + Solana = dealing-room-style option pricing with consumer-app access and transparent USDC settlement.</div>
+</section>
+
+<!-- ───────────────── SLIDE 8: TEAM + ROADMAP + ASK ───────────────── -->
+<section class="slide">
+  <div class="slide-header">
+    <span class="brand"><span class="brand-mark">K</span>Kodrat · Team · Roadmap · Ask</span>
+    <span class="num">07 / 08</span>
+  </div>
+
+  <div>
+    <span class="eyebrow">Builder &amp; what's next</span>
+    <h2 class="display">Devnet product today. Mainnet path:<br>oracle, margin, and <em>liquidity</em>.</h2>
+  </div>
+
+  <div class="grid-2" style="flex: 1;">
+    <div class="builder-card">
+      <div class="avatar">F</div>
+      <div class="builder-name"><span class="placeholder">[Your name]</span></div>
+      <div class="builder-handle">solo founder · @<span class="placeholder">handle</span></div>
+
+      <p style="margin-bottom: 16px;">
+        <span class="placeholder">[1 paragraph: your background — engineer? trader? quant? prior Solana / crypto work?]</span>
+      </p>
+      <p>Day-1 market maker: Rust pricer + ed25519 signer running off-chain, with a single-MM USDC vault on devnet today. The protocol already separates pricing from settlement so more MMs can join later.</p>
+
+      <div style="margin-top: auto; padding-top: 18px; border-top: 1px solid var(--border-soft); font-size: 12px; color: var(--text3); letter-spacing: 0.4px; text-transform: uppercase; font-weight: 600;">
+        option_protocol/ + ndf_protocol/ &nbsp;·&nbsp; devnet demo &nbsp;·&nbsp; RFQ bot + frontend
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card" style="flex: 1;">
+        <h3 class="display" style="font-size: 20px; margin-bottom: 14px;">Roadmap</h3>
+        <div class="roadmap-step">
+          <div class="when">May–Jun '26</div>
+          <div class="what"><strong>Mainnet alpha</strong> · USD/IDR puts · production oracle · single MM · external security review</div>
+        </div>
+        <div class="roadmap-step">
+          <div class="when">Jul–Sep '26</div>
+          <div class="what"><strong>Multi-MM RFQ</strong> · best quote routing · capped calls · dynamic margin for MM vaults</div>
+        </div>
+        <div class="roadmap-step">
+          <div class="when">Q4 '26</div>
+          <div class="what"><strong>Distribution</strong> · exporter associations · exchange/on-ramp partnerships · NDF integration for forward hedges</div>
+        </div>
+      </div>
+
+      <div class="card accent">
+        <h3 class="display" style="font-size: 20px; margin-bottom: 14px;">Ask Superteam Indonesia</h3>
+        <ul class="ask-list">
+          <li><span class="ask-num">1</span><span><strong>Design partners</strong> — <span class="sub">SME exporters/importers willing to test hedging flows.</span></span></li>
+          <li><span class="ask-num">2</span><span><strong>Market makers</strong> — <span class="sub">liquidity partners for IDR, JPY, and CNY pairs.</span></span></li>
+          <li><span class="ask-num">3</span><span><strong>Regulatory path</strong> — <span class="sub">guidance on Indonesian derivatives and stablecoin distribution.</span></span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────────── SLIDE 9: CLOSING ───────────────── -->
+<section class="slide slide-title">
+  <div class="slide-header" style="position: absolute; top: 56px; left: 80px; right: 80px;">
+    <span class="brand"><span class="brand-mark">K</span>Kodrat · Thank you</span>
+    <span class="num">08 / 08</span>
+  </div>
+
+  <div style="margin-top: auto; margin-bottom: auto; max-width: 880px;">
+    <span class="badge">Demo live on devnet · USDC cash settlement</span>
+    <h1 class="display" style="font-size: 92px;">FX hedging,<br><em>for businesses of every size.</em></h1>
+    <p class="lede" style="margin-top: 36px;">
+      Kodrat turns FX hedging from a bank-only product into a self-serve, on-chain safety net for global SMEs.<br><br>
+      Try it: <a href="#" class="closing-link"><span class="placeholder">[demo URL]</span></a><br>
+      Code: <a href="#" class="closing-link"><span class="placeholder">[github URL]</span></a>
+    </p>
+  </div>
+
+  <div class="closing-art">
+    <img src="../option_protocol/frontend/public/flags/Indonesia.jpg" alt="" />
+    <img src="../option_protocol/frontend/public/flags/usa.jpg" alt="" />
+    <img src="../option_protocol/frontend/public/flags/Japan.jpg" alt="" />
+    <img src="../option_protocol/frontend/public/flags/China.jpg" alt="" />
+    <img src="../option_protocol/frontend/public/flags/india.jpg" alt="" />
+    <img src="../option_protocol/frontend/public/flags/vietnam.jpg" alt="" />
+  </div>
+
+  <div class="slide-title-foot">
+    <span>Kodrat · 2026 · Built on Solana</span>
+    <span><span class="placeholder">[email / X handle]</span></span>
+  </div>
+</section>
+
+</body>
+</html>

@@ -1,0 +1,15 @@
+[package]
+name = "option_protocol_types"
+version = "0.1.0"
+edition = "2021"
+description = "Shared types for Kodrat option protocol (bot + on-chain program)"
+
+[dependencies]
+borsh = { version = "1", features = ["derive"] }
+serde = { version = "1", features = ["derive"] }
+anchor-lang = { version = "1.0.1", optional = true }
+
+[features]
+default = []
+anchor = ["dep:anchor-lang"]
+idl-build = ["dep:anchor-lang", "anchor-lang/idl-build"]

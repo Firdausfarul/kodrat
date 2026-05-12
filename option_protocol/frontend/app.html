@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kodrat App — Trading</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-brand" aria-label="Kodrat — back to home">
+    <span class="logo">K</span>
+    <span class="brand-text">
+      <span class="brand-name">Kodrat</span>
+      <span class="brand-sub">App</span>
+    </span>
+  </a>
+  <div class="nav-actions">
+    <div class="mode-toggle" role="tablist" aria-label="View mode">
+      <button class="mode-pill active" data-mode="retail" type="button" role="tab">Beginner</button>
+      <button class="mode-pill" data-mode="pro" type="button" role="tab">Pro</button>
+    </div>
+    <div class="network-badge" title="Current network">
+      <span class="network-dot"></span>
+      <span>Devnet</span>
+    </div>
+    <div id="balance-display" class="balance-badge" style="display:none" title="Your USDC balance">
+      <span class="balance-icon" aria-hidden="true"></span>
+      <span id="balance-amount" class="tabular">0.00</span>
+      <span class="balance-unit">USDC</span>
+    </div>
+    <button id="connect-btn" class="btn-connect">
+      <span class="btn-icon">🔌</span>
+      <span>Connect Wallet</span>
+    </button>
+  </div>
+</nav>
+
+<main>
+  <section class="hero">
+    <h1 id="hero-title">Buy a Put Option</h1>
+    <p id="hero-sub">Protect your export revenue from a strengthening rupiah.</p>
+  </section>
+
+  <div id="wallet-banner" class="wallet-banner" style="display:none">
+    <div class="wb-icon">🔌</div>
+    <div class="wb-text">
+      <h4>Connect your wallet to get started</h4>
+      <p>You need a Solana wallet (Backpack/Phantom/Solflare) with USDC to buy options.</p>
+    </div>
+    <button id="banner-connect-btn" type="button">Connect</button>
+  </div>
+
+  <div id="success-card-container"></div>
+
+  <!-- Retail wizard (default) -->
+  <section id="retail-wizard" class="card glass">
+    <div class="wizard-progress" id="wizard-progress">
+      <div class="wizard-dot active" data-step="1"></div>
+      <div class="wizard-dot" data-step="2"></div>
+      <div class="wizard-dot" data-step="3"></div>
+    </div>
+
+    <div class="wizard-step active" data-step="1">
+      <h3 class="wizard-title">I am a...</h3>
+      <p class="wizard-sub">Pick your profile — we'll pick the right option type for you.</p>
+      <div class="profile-choice">
+        <button class="profile-card" data-profile="exporter" type="button">
+          <span class="profile-icon">📦</span>
+          <strong>Exporter</strong>
+          <span class="profile-desc">I get paid in USD. I need protection if the rupiah strengthens (USD becomes worth less).</span>
+        </button>
+        <button class="profile-card" data-profile="importer" type="button">
+          <span class="profile-icon">📥</span>
+          <strong>Importer</strong>
+          <span class="profile-desc">I pay suppliers in USD. I need protection if the rupiah weakens (USD becomes more expensive).</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="wizard-step" data-step="2">
+      <div class="wizard-summary" id="wizard-summary-2"></div>
+      <h3 class="wizard-title">What's the size of your transaction?</h3>
+      <p class="wizard-sub">Enter one side — the other fills in automatically at the current rate.</p>
+
+      <div class="amount-pair-row" id="wizard-pair-pills" role="radiogroup" aria-label="Foreign currency pair">
+        <button class="flag-pair-card active" data-pair="usd_idr" type="button" role="radio" aria-checked="true">
+          <img class="flag-pair-img" src="/flags/Indonesia.jpg" alt="" />
+          <div class="flag-pair-text">
+            <strong>USD / IDR</strong>
+            <small>1 USD = Rp 16.250</small>
+          </div>
+        </button>
+        <button class="flag-pair-card" data-pair="usd_jpy" type="button" role="radio" aria-checked="false">
+          <img class="flag-pair-img" src="/flags/Japan.jpg" alt="" />
+          <div class="flag-pair-text">
+            <strong>USD / JPY</strong>
+            <small>1 USD = ¥ 145,20</small>
+          </div>
+        </button>
+        <button class="flag-pair-card" data-pair="jpy_idr" type="button" role="radio" aria-checked="false">
+          <img class="flag-pair-img" src="/flags/Japan.jpg" alt="" />
+          <div class="flag-pair-text">
+            <strong>JPY / IDR</strong>
+            <small>1 JPY = Rp 111,80</small>
+          </div>
+        </button>
+        <button class="flag-pair-card" data-pair="cny_idr" type="button" role="radio" aria-checked="false">
+          <img class="flag-pair-img" src="/flags/China.jpg" alt="" />
+          <div class="flag-pair-text">
+            <strong>CNY / IDR</strong>
+            <small>1 CNY = Rp 2.260</small>
+          </div>
+        </button>
+        <button class="flag-pair-card" data-pair="cny_usd" type="button" role="radio" aria-checked="false">
+          <img class="flag-pair-img" src="/flags/China.jpg" alt="" />
+          <div class="flag-pair-text">
+            <strong>CNY / USD</strong>
+            <small>1 CNY = $ 0,1390</small>
+          </div>
+        </button>
+      </div>
+
+      <div class="amount-stack">
+        <div class="amount-row">
+          <label for="wizard-amount-base" id="wizard-base-ccy-label">In USD</label>
+          <div class="amount-input-wrap">
+            <input type="number" id="wizard-amount-base" value="5000" min="0" step="100" inputmode="decimal" />
+            <span class="amount-ccy" id="wizard-base-ccy-suffix">$</span>
+          </div>
+        </div>
+        <div class="amount-swap" aria-hidden="true">⇅</div>
+        <div class="amount-row">
+          <label for="wizard-amount-quote" id="wizard-quote-ccy-label">In IDR</label>
+          <div class="amount-input-wrap">
+            <input type="number" id="wizard-amount-quote" placeholder="—" inputmode="decimal" />
+            <span class="amount-ccy" id="wizard-quote-ccy-suffix">Rp</span>
+          </div>
+        </div>
+      </div>
+      <div class="amount-rate" id="wizard-rate-info"><span class="amount-rate-dot"></span>Loading current rate…</div>
+    </div>
+
+    <div class="wizard-step" data-step="3">
+      <div class="wizard-summary" id="wizard-summary-3"></div>
+      <h3 class="wizard-title">How long do you need protection?</h3>
+      <p class="wizard-sub">Pick the period until the option can be exercised.</p>
+      <div class="tenor-cards" id="wizard-tenor-cards">
+        <button class="tenor-card" data-tenor="604800" type="button">
+          <strong>7</strong>
+          <span>days</span>
+          <small>≈ 1 week</small>
+        </button>
+        <button class="tenor-card active" data-tenor="2592000" type="button">
+          <strong>30</strong>
+          <span>days</span>
+          <small>≈ 1 month</small>
+        </button>
+        <button class="tenor-card" data-tenor="5184000" type="button">
+          <strong>60</strong>
+          <span>days</span>
+          <small>≈ 2 months</small>
+        </button>
+      </div>
+    </div>
+
+    <div class="wizard-actions">
+      <button id="wizard-back" class="btn-secondary" type="button" disabled>← Back</button>
+      <button id="wizard-next" class="btn-primary" type="button">Next →</button>
+    </div>
+  </section>
+
+  <section id="quote-section" class="card glass" style="display:none">
+    <div class="card-header">
+      <h2>🛒 Option Parameters</h2>
+    </div>
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Pair</label>
+        <div class="select-wrapper">
+          <select id="pair">
+            <option value="usd_idr">🇮🇩 USD / IDR</option>
+            <option value="usd_jpy">🇯🇵 USD / JPY</option>
+            <option value="jpy_idr">🇮🇩 JPY / IDR</option>
+            <option value="cny_idr">🇮🇩 CNY / IDR</option>
+            <option value="cny_usd">🇺🇸 CNY / USD</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Tenor <span class="label-hint" id="tenor-hint">option expiry</span></label>
+        <div class="select-wrapper">
+          <select id="tenor">
+            <option value="604800">7 Days</option>
+            <option value="2592000" selected>30 Days</option>
+            <option value="5184000">60 Days</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group full">
+        <label>Option Type</label>
+        <div class="select-wrapper">
+          <select id="kind">
+            <option value="0">📉 Put — Hedge against rupiah strengthening</option>
+            <option value="1">📈 Call — Hedge against rupiah weakening</option>
+          </select>
+        </div>
+        <div class="field-hint" id="kind-hint">Exporters typically buy a <strong>Put</strong>: payout if the quote currency strengthens.</div>
+      </div>
+      <div class="form-group full">
+        <label>Notional <span class="label-hint">total exposure to hedge · fill in either side</span></label>
+        <div class="dual-input">
+          <div class="dual-side">
+            <div class="input-suffix">
+              <input type="number" id="notional" value="5000" min="0" step="100" data-usd="5000" />
+              <span class="suffix" id="notional-base-suffix">$</span>
+            </div>
+            <span class="dual-side-label" id="notional-base-label">USD</span>
+          </div>
+          <div class="dual-arrow">⇌</div>
+          <div class="dual-side">
+            <div class="input-suffix">
+              <input type="number" id="notional-quote" placeholder="—" />
+              <span class="suffix" id="notional-quote-suffix">Rp</span>
+            </div>
+          </div>
+        </div>
+        <div id="notional-warn" class="field-warn" style="display:none"></div>
+        <div class="dual-rate-info" id="pro-rate-info">Loading rate…</div>
+        <div class="preset-row" id="notional-presets">
+          <button class="preset-chip" data-preset="1000" type="button">$1K</button>
+          <button class="preset-chip active" data-preset="5000" type="button">$5K</button>
+          <button class="preset-chip" data-preset="10000" type="button">$10K</button>
+          <button class="preset-chip" data-preset="25000" type="button">$25K</button>
+          <button class="preset-chip" data-preset="50000" type="button">$50K</button>
+        </div>
+      </div>
+      <div class="form-group full">
+        <button id="quote-btn" class="btn-primary" disabled>
+          <span class="btn-text">Get Quote</span>
+          <span class="btn-spinner"></span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <section id="quote-result" class="card glass" style="display:none">
+    <div class="card-header">
+      <h2>💱 Price Quote</h2>
+      <span class="card-badge">Live</span>
+    </div>
+    <div class="quote-card">
+      <div class="quote-row">
+        <div class="quote-item">
+          <span class="quote-label">Strike <span class="atm-pill" id="strike-pill">ATM</span></span>
+          <strong id="q-strike" class="tabular">—</strong>
+          <span class="quote-sub" id="q-strike-sub">option exercise price</span>
+        </div>
+        <div class="quote-item">
+          <span class="quote-label">Premium</span>
+          <strong id="q-premium" class="tabular">—</strong>
+          <span class="quote-sub" id="q-premium-sub">—</span>
+        </div>
+      </div>
+      <div class="quote-row">
+        <div class="quote-item">
+          <span class="quote-label">Expiry</span>
+          <strong id="q-expiry" class="tabular">—</strong>
+          <span class="quote-sub" id="q-expiry-sub">—</span>
+        </div>
+        <div class="quote-item">
+          <span class="quote-label">Quote valid for</span>
+          <strong id="q-ttl" class="tabular">—</strong>
+          <span class="quote-sub">refresh after expiry</span>
+        </div>
+      </div>
+      <div class="scenarios" id="scenarios">
+        <div class="scenarios-title">Scenarios at expiry</div>
+        <div id="scenarios-list"></div>
+      </div>
+      <div id="call-risk-note" class="risk-note" style="display:none">
+        V1 demo note: call option payouts can exceed notional in extreme FX moves. Kodrat currently reserves 100% of notional and limits the demo to short-tenor major FX pairs.
+      </div>
+      <button id="buy-btn" class="btn-primary btn-buy" style="margin-top:18px">
+        <span class="btn-text">Buy Option — <span id="buy-btn-premium"></span></span>
+        <span class="btn-spinner"></span>
+      </button>
+    </div>
+  </section>
+
+  <section id="positions-section" class="card glass">
+    <div class="card-header">
+      <h2>📋 Your Positions</h2>
+      <button id="refresh-btn" class="btn-icon-only" title="Refresh">🔄</button>
+    </div>
+    <div id="positions-list">
+      <div class="skeleton"><div class="skeleton-row"></div><div class="skeleton-row short"></div></div>
+    </div>
+  </section>
+</main>
+
+<div id="toast-container"></div>
+<div id="modal-root"></div>
+<script type="module" src="/main.js?t=13"></script>
+</body>
+</html>

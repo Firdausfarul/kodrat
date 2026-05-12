@@ -1,0 +1,29 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+target/
+dist/
+**/target/
+**/dist/
+.vite/
+
+# Local Solana validator data and generated ledgers
+test-ledger/
+ledger/
+.anchor/
+
+# Local secrets, signer material, and generated keypairs
+.env
+.env.*
+*.pem
+*.key
+*-keypair.json
+mm_keys.json
+.kodrat-mm-signer-*.hex
+**/.kodrat-mm-signer-*.hex
+option_protocol/target/deploy/*-keypair.json
+
+# Logs and OS/editor files
+*.log
+.DS_Store

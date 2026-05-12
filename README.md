@@ -1,3 +1,27 @@
+# Kodrat Local Demo Caveat
+
+Kodrat is a Solana Devnet hackathon demo, but the full quote and purchase flow requires running the RFQ market-maker bot locally. A deployed frontend by itself can show the UI, but it cannot request signed option quotes unless `BOT_URL` points to a running bot.
+
+Run locally:
+
+```bash
+cd option_protocol/bot
+set -a; . /tmp/kodrat-devnet.env; set +a
+cargo run --release
+```
+
+```bash
+cd option_protocol/frontend
+npm install
+npm run dev -- --host 127.0.0.1
+```
+
+Then open `http://127.0.0.1:3000/app.html`, connect a Devnet wallet, request a quote, and buy an option. The current demo uses the Devnet program `H5yv1n2BMwPXgVGYA9Rewz4PQFx7p3RDpbZgBajoiULY`, demo USDC mint `HaeZjxpic6AWcd6aS2TfLzHXq1c4qFegR6WMd5aH5CRv`, and a locally hosted bot at `http://localhost:8787`.
+
+Do not commit `/tmp/kodrat-devnet.env` or local `.kodrat-mm-signer-*.hex` files; they contain demo market-maker signer material.
+
+---
+
 # Meridian FX — Pooled FX Hedging on Solana
 
 > **Hackathon demo on Solana Devnet.** All collateral is a program-owned demo stablecoin (demoUSD). No real funds are at risk.
